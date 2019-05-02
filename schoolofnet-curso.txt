@@ -1,0 +1,13 @@
+composer create-project --prefer-dist laravel/laravel laravel-grid-personalizavel "5.4.*"
+
+php artisan make:model Category -m
+
+php artisan make:model Product -m
+
+php artisan make:migration create_category_product_table --create=users
+
+php artisan make:seeder CategoriesTableSeeder
+
+php artisan make:seeder ProductsTableSeeder
+
+touch database/database.sqlite
