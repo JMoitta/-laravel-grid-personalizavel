@@ -6,6 +6,7 @@ class Table
 {
     private $rows = [];
     private $model = null;
+    private $columns = [];
 
     public function rows()
     {
@@ -18,6 +19,15 @@ class Table
             return $this->model;
         }
         $this->model = !\is_object($model)? new $model: $model;
+        return $this;
+    }
+
+    public function columns($columns = null)
+    {
+        if(!$columns){
+            return $this->columns;
+        }
+        $this->columns = $columns;
         return $this;
     }
 

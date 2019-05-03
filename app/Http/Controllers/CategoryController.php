@@ -23,8 +23,17 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        dd($this->table->model(Category::class)->search()->rows());
-        return view('categories.index');
+        $this->table
+            ->model(Category::class)
+            ->columns([
+                [
+                    'label' => 'Nome',
+                    'name' => 'name',
+                ]
+            ])
+            ->search()
+            ->rows();
+        return view('categories.index', ['table' => $this->table]);
     }
 
     /**
