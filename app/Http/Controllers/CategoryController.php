@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        dd($this->table
+        $this->table
             ->model(Category::class)
             ->columns([
                 [
@@ -31,8 +31,8 @@ class CategoryController extends Controller
                     'name' => 'name',
                 ]
             ])
-            ->search()
-            ->rows());
+            ->paginate(5)
+            ->search();
         return view('categories.index', ['table' => $this->table]);
     }
 
