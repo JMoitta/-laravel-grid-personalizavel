@@ -2,10 +2,16 @@
 
 namespace App\Table;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Table
 {
     private $rows = [];
+    /**
+     * @var Builder
+     */
     private $model = null;
+    private $modelOriginal = null;
     private $columns = [];
 
     public function rows()
@@ -19,6 +25,7 @@ class Table
             return $this->model;
         }
         $this->model = !\is_object($model)? new $model: $model;
+        $this->modelOriginal = clone $this->model;
         return $this;
     }
 
@@ -33,7 +40,10 @@ class Table
 
     public function search()
     {
-        $this->rows = $this->model->get();
+        $keyName = $this->modelOriginal->getKeyName();
+        $columns = collect($this->columns())->pluck('name')->toArray();
+        array_unshift($columns, $keyName);
+        $this->rows = $this->model->get($columns);
         return $this;
     }
 }
