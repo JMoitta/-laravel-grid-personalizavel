@@ -32,6 +32,7 @@ class CategoryController extends Controller
                 ]
             ])
             ->paginate(5)
+            ->addAction('Editar', 'categories.index', 'categories.test_action')
             ->search();
         return view('categories.index', ['table' => $this->table]);
     }

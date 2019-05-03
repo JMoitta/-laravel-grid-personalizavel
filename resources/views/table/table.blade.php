@@ -6,14 +6,27 @@
         @foreach ($table->columns() as $column)
           <th>{{ $column['label']}}</th>
         @endforeach
+        @if (count($table->actions()))
+            <th>Ações</th>
+        @endif
       </tr>
     </thead>
     <tbody>
       @foreach ($table->rows() as $row)
         <tr>
           @foreach ($table->columns() as $column)
-            <th>{{ $row{$column['name']} }}</th>
+            <td>{{ $row{$column['name']} }}</td>
           @endforeach
+          @if(count($table->actions()))
+            <td>
+              @foreach($table->actions() as $action)
+                @include($action['template'],[
+                  'row' => $row,
+                  'action' => $action,
+                ])
+              @endforeach
+            </td>
+          @endif
         </tr>
       @endforeach
     </tbody>

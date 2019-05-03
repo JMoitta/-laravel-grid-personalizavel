@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 class Table
 {
     private $rows = [];
+    private $columns = [];
+    private $actions = [];
     /**
      * @var Builder
      */
     private $model = null;
     private $modelOriginal = null;
-    private $columns = [];
     private $perPage = 15;
 
     public function paginate($perPage)
@@ -42,6 +43,21 @@ class Table
             return $this->columns;
         }
         $this->columns = $columns;
+        return $this;
+    }
+
+    public function actions()
+    {
+        return $this->actions;
+    }
+
+    public function addAction($label, $route, $template)
+    {
+        $this->actions[] = [
+            'label' => $label,
+            'route' => $route,
+            'template' => $template,
+        ];
         return $this;
     }
 
