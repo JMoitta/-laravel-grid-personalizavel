@@ -31,8 +31,8 @@ class CategoryController extends Controller
                     'name' => 'name',
                 ]
             ])
+            ->addEditAction('categories.edit')
             ->paginate(5)
-            ->addAction('Editar', 'categories.index', 'categories.test_action')
             ->search();
         return view('categories.index', ['table' => $this->table]);
     }
@@ -77,7 +77,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $id;
     }
 
     /**

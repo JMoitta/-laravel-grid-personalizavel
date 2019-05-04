@@ -1,15 +1,7 @@
-composer create-project --prefer-dist laravel/laravel laravel-grid-personalizavel "5.4.*"
+// Install node.js link https://nodejs.org/en/
 
-php artisan make:model Category -m
+node -v 
 
-php artisan make:model Product -m
+npm -v
 
-php artisan make:migration create_category_product_table --create=users
-
-php artisan make:seeder CategoriesTableSeeder
-
-php artisan make:seeder ProductsTableSeeder
-
-touch database/database.sqlite
-
-php artisan migrate:refresh --seed
+npm run dev

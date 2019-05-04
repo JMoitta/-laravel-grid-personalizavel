@@ -61,6 +61,12 @@ class Table
         return $this;
     }
 
+    public function addEditAction($route, $template = null)
+    {
+        $this->addAction('Editar', $route, $template ? $template : 'table.edit_action');
+        return $this;
+    }
+
     public function search()
     {
         $keyName = $this->modelOriginal->getKeyName();
