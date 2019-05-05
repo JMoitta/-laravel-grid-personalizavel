@@ -4,13 +4,13 @@
       <div class="input-group-addon">
         <span class="glyphicon glyphicon-search"></span>
       </div>
-      <input type="text" class="form-control" name="search" placeholder="Pesquisar"> 
+      <input type="text" class="form-control" name="search" placeholder="Pesquisar" value="{{\Request::get('search')}}"> 
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Pesquisar</button>
 </form>
 @if (count($table->rows()))
-  {{ $table->rows()->links() }}
+  {{ $table->rows()->appends(['search' => \Request::get('search')])->links() }}
   <table class="table table-striped">
     <thead>
       <tr>
@@ -42,7 +42,7 @@
       @endforeach
     </tbody>
   </table>
-  {{ $table->rows()->links() }}
+  {{ $table->rows()->appends(['search' => \Request::get('search')])->links() }}
 @else
   <table class="table">
     <tr>

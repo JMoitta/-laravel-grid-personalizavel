@@ -93,8 +93,11 @@ class Table
     public function applyFilters()
     {
         foreach ($this->filters as $filter){
+            $field = $filter['name'];
+            $operator = $filter['operator'];
             $search = \Request::get('search');
-            $this->model = $this->model->where($filter['name'], $filter['operator'], $search);
+            $search = strtolower($operator) === 'like'? "%$search%":$search;
+            $this->model = $this->model->orWhere($field, $operator, $search);
         }
     }
 }

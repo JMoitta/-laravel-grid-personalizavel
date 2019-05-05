@@ -33,9 +33,13 @@ class CategoryController extends Controller
             ])
             ->filters([
                 [
+                    'name' => 'id',
+                    'operator' => 'LIKE',
+                ],
+                [
                     'name' => 'name',
-                    'operator' => '=',
-                ]
+                    'operator' => 'LIKE',
+                ],
             ])
             ->addEditAction('categories.edit')
             ->addDeleteAction('categories.destroy')
