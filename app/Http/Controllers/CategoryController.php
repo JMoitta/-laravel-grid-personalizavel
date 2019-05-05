@@ -32,6 +32,7 @@ class CategoryController extends Controller
                 ]
             ])
             ->addEditAction('categories.edit')
+            ->addDeleteAction('categories.destroy')
             ->paginate(5)
             ->search();
         return view('categories.index', ['table' => $this->table]);
