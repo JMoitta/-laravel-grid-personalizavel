@@ -97,7 +97,14 @@ class Table
             $operator = $filter['operator'];
             $search = \Request::get('search');
             $search = strtolower($operator) === 'like'? "%$search%":$search;
-            $this->model = $this->model->orWhere($field, $operator, $search);
+            if(!strpos($filter['name'], '.')) {
+                $this->model = $this->model->orWhere($field, $operator, $search);
+            } else {
+                list($relation, $field) = explode('.', $filter['name']);
+                $this->model = $this->model->orWhereHas($relation, function($query) use($field,$operator, $search){
+                    $query->where($field,$operator, $search);
+                });
+            }
         }
     }
 }

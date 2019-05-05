@@ -1,7 +1,1 @@
-// Install node.js link https://nodejs.org/en/
-
-node -v 
-
-npm -v
-
-npm run dev
+php artisan tinker

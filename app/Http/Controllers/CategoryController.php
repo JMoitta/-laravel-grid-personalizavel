@@ -40,6 +40,10 @@ class CategoryController extends Controller
                     'name' => 'name',
                     'operator' => 'LIKE',
                 ],
+                [
+                    'name' => 'products.name',
+                    'operator' => 'LIKE',
+                ],
             ])
             ->addEditAction('categories.edit')
             ->addDeleteAction('categories.destroy')
