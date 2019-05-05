@@ -9,6 +9,7 @@ class Table
     private $rows = [];
     private $columns = [];
     private $actions = [];
+    private $filters = [];
     /**
      * @var Builder
      */
@@ -34,6 +35,12 @@ class Table
         }
         $this->model = !\is_object($model)? new $model: $model;
         $this->modelOriginal = clone $this->model;
+        return $this;
+    }
+
+    public function filters($filters)
+    {
+        $this->filters = $filters;
         return $this;
     }
 
@@ -78,7 +85,16 @@ class Table
         $keyName = $this->modelOriginal->getKeyName();
         $columns = collect($this->columns())->pluck('name')->toArray();
         array_unshift($columns, $keyName);
+        $this->applyFilters();
         $this->rows = $this->model->paginate($this->perPage, $columns);
         return $this;
+    }
+
+    public function applyFilters()
+    {
+        foreach ($this->filters as $filter){
+            $search = \Request::get('search');
+            $this->model = $this->model->where($filter['name'], $filter['operator'], $search);
+        }
     }
 }

@@ -31,6 +31,12 @@ class CategoryController extends Controller
                     'name' => 'name',
                 ]
             ])
+            ->filters([
+                [
+                    'name' => 'name',
+                    'operator' => '=',
+                ]
+            ])
             ->addEditAction('categories.edit')
             ->addDeleteAction('categories.destroy')
             ->paginate(5)

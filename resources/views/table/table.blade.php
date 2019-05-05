@@ -1,3 +1,14 @@
+<form action="{{url()->current()}}" method="GET" class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <input type="text" class="form-control" name="search" placeholder="Pesquisar"> 
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Pesquisar</button>
+</form>
 @if (count($table->rows()))
   {{ $table->rows()->links() }}
   <table class="table table-striped">
