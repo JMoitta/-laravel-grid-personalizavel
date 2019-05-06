@@ -86,6 +86,7 @@ class Table
         $columns = collect($this->columns())->pluck('name')->toArray();
         array_unshift($columns, $keyName);
         $this->applyFilters();
+        $this->applyOrders();
         $this->rows = $this->model->paginate($this->perPage, $columns);
         return $this;
     }
@@ -104,6 +105,21 @@ class Table
                 $this->model = $this->model->orWhereHas($relation, function($query) use($field,$operator, $search){
                     $query->where($field,$operator, $search);
                 });
+            }
+        }
+    }
+
+    protected function applyOrders()
+    {
+        $fieldOrderParam = \Request::get('field_order');
+        $orderParam = \Request::get('order');
+        foreach ($this->columns() as $column) {
+            if($column['name'] === $fieldOrderParam && isset($column['order'])) {
+                $this->model->orderBy("{$column['name']}", $orderParam == 'desc'?'desc':'asc');
+            } else if(isset($column['order'])) {
+                if($column['order'] === 'desc' || $column['order'] === 'asc') {
+                    $this->model->orderBy("{$column['name']}", $column['order']);
+                }
             }
         }
     }
