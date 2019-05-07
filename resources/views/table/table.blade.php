@@ -10,7 +10,7 @@
   <button type="submit" class="btn btn-primary">Pesquisar</button>
 </form>
 @if (count($table->rows()))
-  {{ $table->rows()->appends(['search' => \Request::get('search')])->links() }}
+  {{ $table->rows()->appends(['search' => \Request::get('search'), 'field_order' => \Request::get('field_order'),'order' => \Request::get('order')])->links() }}
   <table class="table table-striped" id="table-search">
     <thead>
       <tr>
@@ -56,7 +56,7 @@
       @endforeach
     </tbody>
   </table>
-  {{ $table->rows()->appends(['search' => \Request::get('search')])->links() }}
+  {{ $table->rows()->appends(['search' => \Request::get('search'), 'field_order' => \Request::get('field_order'),'order' => \Request::get('order')])->links() }}
 @else
   <table class="table">
     <tr>
