@@ -113,10 +113,13 @@ class Table
     {
         $fieldOrderParam = \Request::get('field_order');
         $orderParam = \Request::get('order');
-        foreach ($this->columns() as $column) {
+        foreach ($this->columns() as $key => $column) {
             if($column['name'] === $fieldOrderParam && isset($column['order'])) {
-                $this->model->orderBy("{$column['name']}", $orderParam == 'desc'?'desc':'asc');
+                $order = $orderParam == 'desc'?'desc':'asc';
+                $this->columns[$key]['_order'] = $order;
+                $this->model->orderBy("{$column['name']}", $order);
             } else if(isset($column['order'])) {
+                $this->columns[$key]['_order'] = $column['order'];
                 if($column['order'] === 'desc' || $column['order'] === 'asc') {
                     $this->model->orderBy("{$column['name']}", $column['order']);
                 }

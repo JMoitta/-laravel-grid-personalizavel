@@ -29,7 +29,7 @@ class CategoryController extends Controller
                 [
                     'label' => 'Nome',
                     'name' => 'name',
-                    'order' => 'desc',
+                    'order' => true,
                 ]
             ])
             ->filters([
